@@ -1,0 +1,15 @@
+[
+  {
+    "model": "testapp.person",
+    "pk": 1,
+    "fields": {
+      "first_name": "Boryslav",
+      "last_name": "Larin",
+      "bio": "Born in Donetsk in 1988. Studied in school #65. Student of DonNTU",
+      "telephone": "063 272 21 44",
+      "email": "brabadu@gmail.com",
+      "twitter": "brabadu"
+    }
+  }
+]
+
