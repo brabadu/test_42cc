@@ -19,5 +19,6 @@ class ContactsTest(TestCase):
         Test that passes context
         """
         response = self.client.get(reverse('contacts'))
-        self.failUnlessEqual(response.context[-1]['person'], "Larin B.")
+        person = response.context[-1]['person']
+        self.failUnlessEqual(str(person), "Larin B.")
 
