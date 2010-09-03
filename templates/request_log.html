@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Request log{% endblock %}
+
+{% block content %}
+    {% if requests %}
+        {% for request in requests %}
+            <p>Request</p>
+            <p>
+                time : {{ request.time }}<br>
+                ip address : {{ request.ip_address }}<br>
+                url : {{ request.url }}<br>
+                request_method : {{ request.request_method }}<br>
+                user_agent : {{ request.user_agent }}<br>
+            </p>
+            <hr>
+        {% endfor %}
+    {% else %}
+        Some error happened. No records in request log.
+    {% endif %}
+{% endblock %}
+
