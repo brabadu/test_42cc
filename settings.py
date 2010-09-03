@@ -95,5 +95,6 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable the admin:
      'django.contrib.admin',
      'test_42cc.person_contacts',
+     'test_42cc.request_logger',
 )
 
