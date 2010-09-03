@@ -16,5 +16,12 @@ class RequestLogEntry (models.Model):
                                             self.user_agent,
                                             )
     def equals(self, log_entry):
-        return False
+        if isinstance(log_entry, RequestLogEntry):
+            return self.time.timetuple()[:6] == log_entry.time.timetuple()[:6] and \
+                   self.ip_address == log_entry.ip_address and \
+                   self.url == log_entry.url and \
+                   self.request_method == log_entry.request_method and \
+                   self.user_agent == log_entry.user_agent
+        else:
+            raise Exception('RequestLogEntry object expected')
 
