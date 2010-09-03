@@ -97,5 +97,6 @@ INSTALLED_APPS = (
      'django.contrib.admin',
      'test_42cc.person_contacts',
      'test_42cc.request_logger',
+     'test_42cc.context_settings',
 )
 
