@@ -1,6 +1,6 @@
 [
   {
-    "model": "testapp.person",
+    "model": "person_contacts.person",
     "pk": 1,
     "fields": {
       "first_name": "Boryslav",

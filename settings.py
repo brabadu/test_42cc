@@ -94,6 +94,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     # Uncomment the next line to enable the admin:
      'django.contrib.admin',
-     'test_42cc.testapp',
+     'test_42cc.person_contacts',
 )
 

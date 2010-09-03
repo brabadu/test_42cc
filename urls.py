@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from testapp.views import contacts
+from person_contacts.views import contacts
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
