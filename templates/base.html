@@ -9,9 +9,13 @@
         <li><a href="/">Main page</a></li>
         <li><a href="/request_log">Request log</a></li>
     </ul>
+    <hr>
     {% block content %}{% endblock %}
+    <hr>
     <p>
-        {{ settings }}
+        {% for key,value in settings.items %}
+            <p style='font-size:0.7em'><b>{{ key }}: </b>{{ value }}</p>
+        {% endfor %}
     </p>
 </body>
 </html>
