@@ -75,6 +75,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'test_42cc.request_logger.middleware.RequestLogger',
 )
 
 ROOT_URLCONF = 'test_42cc.urls'
@@ -95,5 +96,6 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable the admin:
      'django.contrib.admin',
      'test_42cc.person_contacts',
+     'test_42cc.request_logger',
 )
 
