@@ -3,6 +3,7 @@ from django.test import Client
 
 from django.core.urlresolvers import reverse
 
+
 class SettingsContextTest(TestCase):
     def setUp(self):
         self.client = Client()
@@ -14,4 +15,3 @@ class SettingsContextTest(TestCase):
         response = self.client.get('/')
         context = response.context['settings']
         self.failUnlessEqual(context is not None, True)
-
