@@ -3,6 +3,7 @@ from django.test import Client
 
 from django.core.urlresolvers import reverse
 
+
 class ContactsTest(TestCase):
     def setUp(self):
         self.client = Client()
@@ -21,4 +22,3 @@ class ContactsTest(TestCase):
         response = self.client.get(reverse('contacts'))
         person = response.context[-1]['person']
         self.failUnlessEqual(str(person), "Larin B.")
-
