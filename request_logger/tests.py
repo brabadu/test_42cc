@@ -5,7 +5,9 @@ from django.test import Client
 
 from request_logger.models import RequestLogEntry
 
+
 user_agent = 'Unknown'
+
 
 class RequestLoggerTest(TestCase):
     def setUp(self):
@@ -16,9 +18,17 @@ class RequestLoggerTest(TestCase):
         Checks that equality test returns False when time is different
         """
         t1 = datetime.datetime.now()
-        r1 = RequestLogEntry(time=t1, ip_address='123', url='/', request_method='get', user_agent=user_agent)
-        t2 = datetime.datetime.fromordinal(t1.toordinal() + 10*1000)
-        r2 = RequestLogEntry(time=t2, ip_address='123', url='/', request_method='get', user_agent=user_agent)
+        r1 = RequestLogEntry(time=t1,
+                             ip_address='123',
+                             url='/',
+                             request_method='get',
+                             user_agent=user_agent)
+        t2 = datetime.datetime.fromordinal(t1.toordinal() + 10 * 1000)
+        r2 = RequestLogEntry(time=t2,
+                             ip_address='123',
+                             url='/',
+                             request_method='get',
+                             user_agent=user_agent)
         self.failUnlessEqual(r1.equals(r2), False)
 
     def test_equals_successes(self):
@@ -26,10 +36,17 @@ class RequestLoggerTest(TestCase):
         Checks that equality test returns True when time is the same
         """
         t = datetime.datetime.now()
-        r1 = RequestLogEntry(time=t, ip_address='123', url='/', request_method='get', user_agent=user_agent)
-        r2 = RequestLogEntry(time=t, ip_address='123', url='/', request_method='get', user_agent=user_agent)
+        r1 = RequestLogEntry(time=t,
+                             ip_address='123',
+                             url='/',
+                             request_method='get',
+                             user_agent=user_agent)
+        r2 = RequestLogEntry(time=t,
+                             ip_address='123',
+                             url='/',
+                             request_method='get',
+                             user_agent=user_agent)
         self.failUnlessEqual(r1.equals(r2), True)
-
 
     def test_database_write(self):
         """
@@ -49,11 +66,10 @@ class RequestLoggerTest(TestCase):
         t = datetime.datetime.now()
         response = self.client.get('/')
 
-        log_entry = RequestLogEntry(time = t,
-                                    ip_address = '127.0.0.1',
-                                    url = '/',
-                                    request_method = 'GET',
-                                    user_agent = user_agent)
+        log_entry = RequestLogEntry(time=t,
+                                    ip_address='127.0.0.1',
+                                    url='/',
+                                    request_method='GET',
+                                    user_agent=user_agent)
         r = RequestLogEntry.objects.all().order_by('-time')[0]
         self.failUnlessEqual(log_entry.equals(r), True)
-
