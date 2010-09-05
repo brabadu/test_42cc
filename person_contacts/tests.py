@@ -65,3 +65,27 @@ class EditintContactsTest(TestCase):
         self.failUnlessEqual(person.email, email)
         self.failUnlessEqual(person.twitter, twitter)
         self.assertRedirects(response, reverse('contacts'))
+
+    def test_form_fails(self):
+        """
+        Test that view finds errors in forms and shows them
+        Error is nonvalid email adress
+        """
+
+        first_name = 'Name'
+        last_name = 'Lastname'
+        bio = 'Biography'
+        telephone = '091 145 67 54'
+        email = 'test-example.com'
+        twitter = 'twiname'
+
+        response = self.client.post(reverse('contacts_edit'),
+                                    {'first_name': first_name,
+                                     'last_name': last_name,
+                                     'bio': bio,
+                                     'telephone': telephone,
+                                     'email': email,
+                                     'twitter': twitter,
+                                    },
+                                    follow=True)
+        self.assertContains(response, 'Error filling form')
