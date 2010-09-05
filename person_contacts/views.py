@@ -20,6 +20,11 @@ def contacts_edit(request):
             form.save()
             return HttpResponseRedirect('/')
         else:
-            return HttpResponse('form error')
+            return render_to_response('contacts_edit.html',
+                              {'form': form, },
+                              context_instance=RequestContext(request))
     else:
-        return HttpResponse('GET')
+        form = PersonForm(instance=Person.objects.get(pk=1))
+        return render_to_response('contacts_edit.html',
+                              {'form': form, },
+                              context_instance=RequestContext(request))

@@ -10,7 +10,7 @@ urlpatterns = patterns('',
     url(r'^$',
         view=contacts,
         name='contacts'),
-    url(r'^contacts_edit$',
+    url(r'^contacts_edit/$',
         view=contacts_edit,
         name='contacts_edit'),
 
