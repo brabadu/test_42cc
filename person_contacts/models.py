@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ModelForm
 
 
 class Person (models.Model):
@@ -11,3 +12,8 @@ class Person (models.Model):
 
     def __unicode__(self):
         return ("%s %s." % (self.last_name, self.first_name[0])).title()
+
+
+class PersonForm(ModelForm):
+    class Meta:
+        model = Person
