@@ -10,3 +10,7 @@ def contacts(request):
     return render_to_response('contacts.html',
                               {'person': p, },
                               context_instance=RequestContext(request))
+
+
+def contacts_edit(request):
+    return HttpResponse()
