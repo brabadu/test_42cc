@@ -49,13 +49,14 @@ class EditintContactsTest(TestCase):
         twitter = 'twiname'
 
         response = self.client.post(reverse('contacts_edit'),
-                                    {first_name: first_name,
-                                     last_name: last_name,
-                                     bio: bio,
-                                     telephone: telephone,
-                                     email: email,
-                                     twitter: twitter,
-                                    })
+                                    {'first_name': first_name,
+                                     'last_name': last_name,
+                                     'bio': bio,
+                                     'telephone': telephone,
+                                     'email': email,
+                                     'twitter': twitter,
+                                    },
+                                    follow=True)
         person = Person.objects.get(pk=1)
         self.failUnlessEqual(person.first_name, first_name)
         self.failUnlessEqual(person.last_name, last_name)
@@ -63,3 +64,4 @@ class EditintContactsTest(TestCase):
         self.failUnlessEqual(person.telephone, telephone)
         self.failUnlessEqual(person.email, email)
         self.failUnlessEqual(person.twitter, twitter)
+        self.assertRedirects(response, reverse('contacts'))
