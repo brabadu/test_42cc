@@ -2,7 +2,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template.context import RequestContext
 from django.shortcuts import render_to_response
 
-from person_contacts.models import Person, PersonForm
+from person_contacts.models import Person
+from person_contacts.forms import PersonForm
 
 
 def contacts(request):
