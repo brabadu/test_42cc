@@ -13,14 +13,14 @@ class ContactsTest(TestCase):
         """
         Test that view exists and passes context
         """
-        response = self.client.get(reverse('contacts'))
+        response = self.client.get(reverse('person_contacts'))
         self.failUnlessEqual(response.status_code, 200)
 
     def test_view2(self):
         """
         Test that passes context
         """
-        response = self.client.get(reverse('contacts'))
+        response = self.client.get(reverse('person_contacts'))
         person = response.context[-1]['person']
         self.failUnlessEqual(str(person), "Larin B.")
 
@@ -33,7 +33,7 @@ class EditintContactsTest(TestCase):
         """
         Test that page exists
         """
-        response = self.client.get(reverse('contacts_edit'))
+        response = self.client.get(reverse('person_contacts_edit'))
         self.failUnlessEqual(response.status_code, 200)
 
     def test_view2(self):
@@ -48,7 +48,7 @@ class EditintContactsTest(TestCase):
         email = 'test@example.com'
         twitter = 'twiname'
 
-        response = self.client.post(reverse('contacts_edit'),
+        response = self.client.post(reverse('person_contacts_edit'),
                                     {'first_name': first_name,
                                      'last_name': last_name,
                                      'bio': bio,
@@ -64,7 +64,7 @@ class EditintContactsTest(TestCase):
         self.failUnlessEqual(person.telephone, telephone)
         self.failUnlessEqual(person.email, email)
         self.failUnlessEqual(person.twitter, twitter)
-        self.assertRedirects(response, reverse('contacts'))
+        self.assertRedirects(response, reverse('person_contacts'))
 
     def test_form_fails(self):
         """
@@ -79,7 +79,7 @@ class EditintContactsTest(TestCase):
         email = 'test-example.com'
         twitter = 'twiname'
 
-        response = self.client.post(reverse('contacts_edit'),
+        response = self.client.post(reverse('person_contacts_edit'),
                                     {'first_name': first_name,
                                      'last_name': last_name,
                                      'bio': bio,
