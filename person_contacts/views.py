@@ -8,7 +8,7 @@ from person_contacts.forms import PersonForm
 
 def contacts(request):
     p = Person.objects.get(pk=1)
-    return render_to_response('contacts.html',
+    return render_to_response('person_contacts/contacts.html',
                               {'person': p, },
                               context_instance=RequestContext(request))
 
@@ -21,11 +21,11 @@ def contacts_edit(request):
             form.save()
             return HttpResponseRedirect('/')
         else:
-            return render_to_response('contacts_edit.html',
+            return render_to_response('person_contacts/contacts_edit.html',
                               {'form': form, },
                               context_instance=RequestContext(request))
     else:
         form = PersonForm(instance=Person.objects.get(pk=1))
-        return render_to_response('contacts_edit.html',
+        return render_to_response('person_contacts/contacts_edit.html',
                               {'form': form, },
                               context_instance=RequestContext(request))
