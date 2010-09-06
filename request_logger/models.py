@@ -9,11 +9,10 @@ class RequestLogEntry (models.Model):
     user_agent = models.CharField(max_length=100)
 
     def __unicode__(self):
-        return "[RequestLogEntry: %s %s %s %s %s %s]" % (self.time.ctime(),
+        return u'%s %s %s %s %s' % (self.time.ctime(),
                                             self.ip_address,
                                             self.request_method,
                                             self.url,
-                                            self.response,
                                             self.user_agent,
                                             )
 
