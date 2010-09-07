@@ -7,6 +7,9 @@ from django.conf.urls.defaults import *
 urlpatterns = patterns('',
     # Example:
     (r'^', include('person_contacts.urls')),
+    url(r'^accounts/login/$',
+        view='django.contrib.auth.views.login',
+        name='login_page'),
 
     # Uncomment the next line to enable the admin:
     # (r'^admin/', include(admin.site.urls)),
