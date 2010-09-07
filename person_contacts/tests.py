@@ -1,6 +1,6 @@
-from django.test import TestCase
 from django.test import Client
 from django.core.urlresolvers import reverse
+from tddspry.django import TestCase
 
 from person_contacts.models import Person
 
@@ -89,3 +89,25 @@ class EditintContactsTest(TestCase):
                                     },
                                     follow=True)
         self.assertContains(response, 'Error filling form')
+
+
+class EditintContactsTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.enable_redirect(True)
+
+    def test_login(self):
+        # try to access page that needs authorization
+        response = self.client.get(reverse('person_contacts_edit'))
+        # make sure that we were redirected to login page
+        self.assertRedirects(response,
+                             reverse('login_page') + '?next=/contacts_edit/')
+
+        # create a user and log in
+        self.user = self.helper('create_user')
+        self.login(self.helpers.USERNAME, self.helpers.PASSWORD,
+                   url=reverse('person_contacts_edit'))
+        # make sure we are on desired place
+        self.logout(url=reverse('person_contacts'))
+        # make sure we are on contacts view page
+        self.url('person_contacts')
