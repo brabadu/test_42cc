@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template.context import RequestContext
 from django.shortcuts import render_to_response
+from django.contrib.auth.decorators import login_required
 
 from person_contacts.models import Person
 from person_contacts.forms import PersonForm
@@ -13,6 +14,7 @@ def contacts(request):
                               context_instance=RequestContext(request))
 
 
+@login_required
 def contacts_edit(request):
     if request.method == 'POST':
         p = Person.objects.get(pk=1)
