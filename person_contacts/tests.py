@@ -7,6 +7,7 @@ from tddspry.django import TestCase
 from person_contacts.models import Person
 from person_contacts.forms import PersonForm
 
+
 class ContactsTest(TestCase):
     def setUp(self):
         self.client = Client()
@@ -131,4 +132,3 @@ class EditintContactsTest(TestCase):
         self.assert_true(model_fields)
         self.assert_true(form_fields)
         self.assert_equal(model_fields, form_fields)
-        
