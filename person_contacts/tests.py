@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 from tddspry.django import TestCase
 
 from person_contacts.models import Person
-
+from person_contacts.forms import PersonForm
 
 class ContactsTest(TestCase):
     def setUp(self):
@@ -123,3 +123,12 @@ class EditintContactsTest(TestCase):
         self.logout(url=reverse('person_contacts'))
         # make sure we are on contacts view page
         self.url('person_contacts')
+
+    def test_form_fields_reversed(self):
+        model_fields = [field.name for field in Person._meta.fields[1:]]
+        model_fields.reverse()
+        form_fields = PersonForm().Meta.fields
+        self.assert_true(model_fields)
+        self.assert_true(form_fields)
+        self.assert_equal(model_fields, form_fields)
+        
