@@ -11,6 +11,7 @@ class PersonForm(ModelForm):
 
     class Meta:
         model = Person
+        fields = [field.name for field in reversed(Person._meta.fields[1:])]
         widgets = {
             'birth_date': SelectDateWidget(years=range(1970,
                                             datetime.datetime.now().year + 1)),
