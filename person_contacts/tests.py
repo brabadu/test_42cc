@@ -1,3 +1,5 @@
+import datetime
+
 from django.test import Client
 from django.core.urlresolvers import reverse
 from tddspry.django import TestCase
@@ -43,6 +45,7 @@ class EditintContactsTest(TestCase):
 
         first_name = 'Name'
         last_name = 'Lastname'
+        birth_date = datetime.date(2000, 10, 1)
         bio = 'Biography'
         telephone = '091 145 67 54'
         email = 'test@example.com'
@@ -51,6 +54,7 @@ class EditintContactsTest(TestCase):
         response = self.client.post(reverse('person_contacts_edit'),
                                     {'first_name': first_name,
                                      'last_name': last_name,
+                                     'birth_date': birth_date,
                                      'bio': bio,
                                      'telephone': telephone,
                                      'email': email,
@@ -74,6 +78,7 @@ class EditintContactsTest(TestCase):
 
         first_name = 'Name'
         last_name = 'Lastname'
+        birth_date = datetime.date(2000, 10, 1)
         bio = 'Biography'
         telephone = '091 145 67 54'
         email = 'test-example.com'
@@ -82,6 +87,7 @@ class EditintContactsTest(TestCase):
         response = self.client.post(reverse('person_contacts_edit'),
                                     {'first_name': first_name,
                                      'last_name': last_name,
+                                     'birth_date': birth_date,
                                      'bio': bio,
                                      'telephone': telephone,
                                      'email': email,
