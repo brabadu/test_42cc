@@ -113,6 +113,12 @@ class EditintContactsTest(TestCase):
         self.user = self.helper('create_user')
         self.login(self.helpers.USERNAME, self.helpers.PASSWORD,
                    url=reverse('person_contacts_edit'))
+
+        self.go200('person_contacts_edit')
+        self.find('<select name="birth_date_day" id="id_birth_date_day">')
+        self.find('<select name="birth_date_month" id="id_birth_date_month">')
+        self.find('<select name="birth_date_year" id="id_birth_date_year">')
+
         # make sure we are on desired place
         self.logout(url=reverse('person_contacts'))
         # make sure we are on contacts view page
