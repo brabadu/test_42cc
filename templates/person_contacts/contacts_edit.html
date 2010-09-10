@@ -2,6 +2,8 @@
 
 {% block title %}Person info {% endblock %}
 
+{% block head %}{{ form.media }}{% endblock %}
+
 {% block content %}
     {% if form.errors %}
         <ul class="errorlist">Error filling form</ul>
