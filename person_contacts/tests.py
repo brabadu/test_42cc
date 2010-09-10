@@ -116,9 +116,6 @@ class EditintContactsTest(TestCase):
                    url=reverse('person_contacts_edit'))
 
         self.go200('person_contacts_edit')
-        self.find('<select name="birth_date_day" id="id_birth_date_day">')
-        self.find('<select name="birth_date_month" id="id_birth_date_month">')
-        self.find('<select name="birth_date_year" id="id_birth_date_year">')
 
         # make sure we are on desired place
         self.logout(url=reverse('person_contacts'))
