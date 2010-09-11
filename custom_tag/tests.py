@@ -1,23 +1,19 @@
-"""
-This file demonstrates two different styles of tests (one doctest and one
-unittest). These will both pass when you run "manage.py test".
+from django.test import Client
+from django.core.urlresolvers import reverse
+from tddspry.django import TestCase
 
-Replace these with more appropriate tests for your application.
-"""
+from person_contacts.models import Person
+from templatetags.edit_link import edit_link
 
-from django.test import TestCase
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
+class EditLinkTagTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+
+    def test_tag_person(self):
         """
-        Tests that 1 + 1 always equals 2.
+        Test that tag returns proper url
         """
-        self.failUnlessEqual(1 + 1, 2)
-
-__test__ = {"doctest": """
-Another way to test that 1 + 1 is equal to 2.
-
->>> 1 + 1 == 2
-True
-"""}
-
+        person = Person.objects.get(pk=1)
+        self.failUnlessEqual(edit_link(person),
+                             '/admin/person_contacts/person/1/')
