@@ -1,5 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
         "http://www.w3.org/TR/html4/loose.dtd">
+{% load edit_link %}
 <html>
 <head>
     <style type="text/css">
@@ -12,6 +13,9 @@
     <ul>
         <li><a href="/">Main page</a></li>
         <li><a href="/contacts_edit">Edit contacts page</a></li>
+        {% if user.is_authenticated %}
+            <li><a href="{% edit_link user %}">Edit users profile [admin]</a></li>
+        {% endif %}
     </ul>
     <hr>
     {% block content %}{% endblock %}
