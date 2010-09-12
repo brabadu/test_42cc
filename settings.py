@@ -108,6 +108,7 @@ INSTALLED_APPS = (
      'test_42cc.request_logger',
      'test_42cc.context_settings',
      'test_42cc.custom_tag',
+     'test_42cc.model_list',
 )
 
 STATIC_DOC_ROOT = os.path.join(os.path.dirname(__file__), 'static_media')
