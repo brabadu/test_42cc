@@ -1,23 +1,24 @@
-"""
-This file demonstrates two different styles of tests (one doctest and one
-unittest). These will both pass when you run "manage.py test".
-
-Replace these with more appropriate tests for your application.
-"""
+import datetime
 
 from django.test import TestCase
+from django.test import Client
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
+from signals.models import DatabaseChangeLogEntry
+
+
+class DatabaseChangeLoggerTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+
+    def test_database_write(self):
         """
-        Tests that 1 + 1 always equals 2.
+        Test that quantity of log entries increases after every request
         """
-        self.failUnlessEqual(1 + 1, 2)
 
-__test__ = {"doctest": """
-Another way to test that 1 + 1 is equal to 2.
+        log_len_before = DatabaseChangeLogEntry.objects.count()
+        # Making request to a page creates database entry for model
+        # RequestLogEntry therefore generates signal that handler must catch
+        response = self.client.get('/')
 
->>> 1 + 1 == 2
-True
-"""}
-
+        log_len_new = DatabaseChangeLogEntry.objects.count()
+        self.failUnlessEqual(log_len_new, log_len_before + 1)
