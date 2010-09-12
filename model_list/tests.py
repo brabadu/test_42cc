@@ -1,23 +1,21 @@
-"""
-This file demonstrates two different styles of tests (one doctest and one
-unittest). These will both pass when you run "manage.py test".
+from tddspry.django import DatabaseTestCase
+from django.db import models
+from django.contrib.contenttypes.models import ContentType
 
-Replace these with more appropriate tests for your application.
-"""
+from management.commands.modellist import Command
 
-from django.test import TestCase
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
+class CommandTest(DatabaseTestCase):
+    def test_count(self):
         """
-        Tests that 1 + 1 always equals 2.
+        Tests returned cortage contains only model names
+        and numbers of objects are equal or greater then 0
         """
-        self.failUnlessEqual(1 + 1, 2)
 
-__test__ = {"doctest": """
-Another way to test that 1 + 1 is equal to 2.
-
->>> 1 + 1 == 2
-True
-"""}
-
+        command = Command()
+        modellist = command.get_modellist()
+        for model_name, count in modellist:
+            # taking model class by it's name
+            model = ContentType.objects.get(model=model_name).model_class()
+            # testing we've counted objects in this model right
+            self.assert_count(model, count)
