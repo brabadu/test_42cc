@@ -3,7 +3,7 @@ import datetime
 from django.test import TestCase
 from django.test import Client
 
-from signals.models import DatabaseChangeLogEntry
+from database_logger.models import DatabaseChangeLogEntry
 
 
 class DatabaseChangeLoggerTest(TestCase):
