@@ -38,6 +38,15 @@ class EditintContactsTest(TestCase):
         User.objects.create_user(username, email, password)
         self.client.login(username=username, password=password)
 
+        self.first_name = 'Name'
+        self.last_name = 'Lastname'
+        self.birth_date = datetime.date(2000, 10, 1)
+        self.bio = 'Biography'
+        self.telephone = '091 145 67 54'
+        self.email = 'test@example.com'
+        self.bad_email = 'test-example.com'
+        self.twitter = 'twiname'
+
     def test_view_exists(self):
         """
         Test that page exists
@@ -45,39 +54,31 @@ class EditintContactsTest(TestCase):
         response = self.client.get(reverse('person_contacts_edit'))
         self.failUnlessEqual(response.status_code, 200)
 
-    def test_view2(self):
+    def test_form_response(self):
         """
         Test that changes were saved correct
         """
-
-        first_name = 'Name'
-        last_name = 'Lastname'
-        birth_date = datetime.date(2000, 10, 1)
-        bio = 'Biography'
-        telephone = '091 145 67 54'
-        email = 'test@example.com'
-        twitter = 'twiname'
 
         response = self.client.get(reverse('person_contacts_edit'))
         self.assertEqual(response.status_code, 200)
 
         response = self.client.post(reverse('person_contacts_edit'),
-                                    {'first_name': first_name,
-                                     'last_name': last_name,
-                                     'birth_date': birth_date,
-                                     'bio': bio,
-                                     'telephone': telephone,
-                                     'email': email,
-                                     'twitter': twitter,
+                                    {'first_name': self.first_name,
+                                     'last_name': self.last_name,
+                                     'birth_date': self.birth_date,
+                                     'bio': self.bio,
+                                     'telephone': self.telephone,
+                                     'email': self.email,
+                                     'twitter': self.twitter,
                                     },
                                     follow=True)
         person = Person.objects.get(pk=1)
-        self.failUnlessEqual(person.first_name, first_name)
-        self.failUnlessEqual(person.last_name, last_name)
-        self.failUnlessEqual(person.bio, bio)
-        self.failUnlessEqual(person.telephone, telephone)
-        self.failUnlessEqual(person.email, email)
-        self.failUnlessEqual(person.twitter, twitter)
+        self.failUnlessEqual(person.first_name, self.first_name)
+        self.failUnlessEqual(person.last_name, self.last_name)
+        self.failUnlessEqual(person.bio, self.bio)
+        self.failUnlessEqual(person.telephone, self.telephone)
+        self.failUnlessEqual(person.email, self.email)
+        self.failUnlessEqual(person.twitter, self.twitter)
         self.assertRedirects(response, reverse('person_contacts'))
 
     def test_form_fails(self):
@@ -86,25 +87,17 @@ class EditintContactsTest(TestCase):
         Error is nonvalid email adress
         """
 
-        first_name = 'Name'
-        last_name = 'Lastname'
-        birth_date = datetime.date(2000, 10, 1)
-        bio = 'Biography'
-        telephone = '091 145 67 54'
-        email = 'test-example.com'
-        twitter = 'twiname'
-
         response = self.client.get(reverse('person_contacts_edit'))
         self.assertEqual(response.status_code, 200)
 
         response = self.client.post(reverse('person_contacts_edit'),
-                                    {'first_name': first_name,
-                                     'last_name': last_name,
-                                     'birth_date': birth_date,
-                                     'bio': bio,
-                                     'telephone': telephone,
-                                     'email': email,
-                                     'twitter': twitter,
+                                    {'first_name': self.first_name,
+                                     'last_name': self.last_name,
+                                     'birth_date': self.birth_date,
+                                     'bio': self.bio,
+                                     'telephone': self.telephone,
+                                     'email': self.bad_email,
+                                     'twitter': self.twitter,
                                     },
                                     follow=True)
         self.assertFormError(response, 'form', 'email',
