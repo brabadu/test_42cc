@@ -9,7 +9,7 @@
     {% if form.errors %}
         <ul class="errorlist">Error filling form</ul>
     {% endif%}
-    <form action="/contacts_edit/" method="POST">
+    <form action="/contacts_edit/" method="POST" id="contact_form">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Сохранить" />
