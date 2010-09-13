@@ -91,7 +91,7 @@ class EditintContactsTest(TestCase):
         self.assertContains(response, 'Error filling form')
 
 
-class EditintContactsTest(TestCase):
+class LoginTest(TestCase):
     def setUp(self):
         self.client = Client()
         self.enable_redirect(True)
