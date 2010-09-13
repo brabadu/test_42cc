@@ -3,6 +3,7 @@ import datetime
 from django.test import Client
 from django.core.urlresolvers import reverse
 from tddspry.django import TestCase
+from django.contrib.auth.models import User
 
 from person_contacts.models import Person
 from person_contacts.forms import PersonForm
@@ -31,6 +32,11 @@ class ContactsTest(TestCase):
 class EditintContactsTest(TestCase):
     def setUp(self):
         self.client = Client()
+        username = 'test_user'
+        email = 'mail@user.com'
+        password = 'test_password'
+        User.objects.create_user(username, email, password)
+        self.client.login(username=username, password=password)
 
     def test_view_exists(self):
         """
@@ -51,6 +57,9 @@ class EditintContactsTest(TestCase):
         telephone = '091 145 67 54'
         email = 'test@example.com'
         twitter = 'twiname'
+
+        response = self.client.get(reverse('person_contacts_edit'))
+        self.assertEqual(response.status_code, 200)
 
         response = self.client.post(reverse('person_contacts_edit'),
                                     {'first_name': first_name,
@@ -85,6 +94,9 @@ class EditintContactsTest(TestCase):
         email = 'test-example.com'
         twitter = 'twiname'
 
+        response = self.client.get(reverse('person_contacts_edit'))
+        self.assertEqual(response.status_code, 200)
+
         response = self.client.post(reverse('person_contacts_edit'),
                                     {'first_name': first_name,
                                      'last_name': last_name,
@@ -95,10 +107,11 @@ class EditintContactsTest(TestCase):
                                      'twitter': twitter,
                                     },
                                     follow=True)
-        self.assertContains(response, 'Error filling form')
+        self.assertFormError(response, 'form', 'email',
+            'Enter a valid e-mail address.')
 
 
-class EditintContactsTest(TestCase):
+class LoginTest(TestCase):
     def setUp(self):
         self.client = Client()
         self.enable_redirect(True)
