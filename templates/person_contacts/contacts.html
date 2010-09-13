@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load edit_link %}
 
 {% block title %}Person info {% endblock %}
 
@@ -9,6 +10,9 @@
 </tr>
 <tr>
 <td>First name</td> <td>{{ person.first_name }}</td>
+</tr>
+<tr>
+<td>Birth date</td> <td>{{ person.birth_date }}</td>
 </tr>
 <tr>
 <td>Bio</td> <td>{{ person.bio }}</td>
@@ -23,5 +27,6 @@
 <td>Twitter</td><td><a href="http://twitter.com/{{ person.twitter }}">{{ person.twitter }}</a></td>
 </tr>
 <table>
+<i><a href="{% edit_link person %}">Edit info [admin]</a></i>
 {% endblock %}
 

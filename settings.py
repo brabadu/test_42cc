@@ -104,7 +104,12 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     # Uncomment the next line to enable the admin:
      'django.contrib.admin',
+     'test_42cc.database_logger',
      'test_42cc.person_contacts',
      'test_42cc.request_logger',
      'test_42cc.context_settings',
+     'test_42cc.custom_tag',
+     'test_42cc.model_list',
 )
+
+STATIC_DOC_ROOT = os.path.join(os.path.dirname(__file__), 'static_media')

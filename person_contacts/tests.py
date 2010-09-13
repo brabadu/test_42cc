@@ -1,8 +1,11 @@
+import datetime
+
 from django.test import Client
 from django.core.urlresolvers import reverse
 from tddspry.django import TestCase
 
 from person_contacts.models import Person
+from person_contacts.forms import PersonForm
 
 
 class ContactsTest(TestCase):
@@ -43,6 +46,7 @@ class EditintContactsTest(TestCase):
 
         first_name = 'Name'
         last_name = 'Lastname'
+        birth_date = datetime.date(2000, 10, 1)
         bio = 'Biography'
         telephone = '091 145 67 54'
         email = 'test@example.com'
@@ -51,6 +55,7 @@ class EditintContactsTest(TestCase):
         response = self.client.post(reverse('person_contacts_edit'),
                                     {'first_name': first_name,
                                      'last_name': last_name,
+                                     'birth_date': birth_date,
                                      'bio': bio,
                                      'telephone': telephone,
                                      'email': email,
@@ -74,6 +79,7 @@ class EditintContactsTest(TestCase):
 
         first_name = 'Name'
         last_name = 'Lastname'
+        birth_date = datetime.date(2000, 10, 1)
         bio = 'Biography'
         telephone = '091 145 67 54'
         email = 'test-example.com'
@@ -82,6 +88,7 @@ class EditintContactsTest(TestCase):
         response = self.client.post(reverse('person_contacts_edit'),
                                     {'first_name': first_name,
                                      'last_name': last_name,
+                                     'birth_date': birth_date,
                                      'bio': bio,
                                      'telephone': telephone,
                                      'email': email,
@@ -107,7 +114,18 @@ class LoginTest(TestCase):
         self.user = self.helper('create_user')
         self.login(self.helpers.USERNAME, self.helpers.PASSWORD,
                    url=reverse('person_contacts_edit'))
+
+        self.go200('person_contacts_edit')
+
         # make sure we are on desired place
         self.logout(url=reverse('person_contacts'))
         # make sure we are on contacts view page
         self.url('person_contacts')
+
+    def test_form_fields_reversed(self):
+        model_fields = [field.name for field in Person._meta.fields[1:]]
+        model_fields.reverse()
+        form_fields = PersonForm().Meta.fields
+        self.assert_true(model_fields)
+        self.assert_true(form_fields)
+        self.assert_equal(model_fields, form_fields)
