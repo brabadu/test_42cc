@@ -4,7 +4,7 @@
 from windmill.authoring import WindmillTestClient
 
 
-def test_recordingSuite0():
+def test_birth_datepicker():
     client = WindmillTestClient(__name__)
 
     client.click(link=u'Edit contacts page')
@@ -16,3 +16,42 @@ def test_recordingSuite0():
     client.waits.forElement(timeout=u'8000', id=u'id_birth_date')
     client.click(id=u'id_birth_date')
     client.asserts.assertNode(id=u'ui-datepicker-div')
+
+
+def test_ajax_form():
+    client = WindmillTestClient(__name__)
+
+    client.click(link=u'Edit contacts page')
+    client.waits.forPageLoad(timeout=u'20000')
+    client.waits.forElement(timeout=u'8000', id=u'id_twitter')
+    client.click(id=u'id_twitter')
+    client.type(text=u'twi_test', id=u'id_twitter')
+    client.type(text=u'mail_test@gmail.com', id=u'id_email')
+    client.click(id=u'id_telephone')
+    client.type(text=u'000 000 00 00', id=u'id_telephone')
+    client.click(id=u'id_bio')
+    client.type(text=u'Bio test', id=u'id_bio')
+    client.click(id=u'id_birth_date')
+    client.type(text=u'1988-08-01', id=u'id_birth_date')
+    client.click(id=u'id_last_name')
+    client.doubleClick(id=u'id_last_name')
+    client.type(text=u'Lastnametest', id=u'id_last_name')
+    client.click(id=u'id_first_name')
+    client.doubleClick(id=u'id_first_name')
+    client.type(text=u'Firstnametest', id=u'id_first_name')
+    client.click(
+            value=u'\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c')
+    client.click(link=u'Main page')
+    client.waits.forPageLoad(timeout=u'20000')
+    client.asserts.assertText(validator=u'Firstnametest',
+                              xpath=u'/html/body/table[1]/tbody/tr[1]/td[2]')
+    client.asserts.assertText(validator=u'Lastnametest',
+                              xpath=u'/html/body/table[1]/tbody/tr[2]/td[2]')
+    client.asserts.assertText(validator=u'1988-08-01',
+                              xpath=u'/html/body/table[1]/tbody/tr[3]/td[2]')
+    client.asserts.assertText(validator=u'000 000 00 00',
+                              xpath=u'/html/body/table[1]/tbody/tr[4]/td[2]')
+    client.asserts.assertText(validator=u'mail_test@gmail.com',
+                              xpath=u'/html/body/table[1]/tbody/tr[5]/td[2]')
+    client.asserts.assertText(validator=u'twi_test',
+                              xpath=u'/html/body/table[1]/tbody/tr[5]/td[2]')
