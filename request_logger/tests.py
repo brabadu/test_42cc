@@ -1,6 +1,6 @@
 import datetime
 
-from django.test import TestCase
+from tddspry.django import TestCase
 from django.test import Client
 
 from request_logger.models import RequestLogEntry
