@@ -6,6 +6,7 @@
 {% block head %}{{ form.media }}{% endblock %}
 
 {% block content %}
+    <img src="/static/img/loading.gif" class="loading" style="display:none">
     <div id="output_result">
         {% if form.errors %}
             <ul class="errorlist">Error filling form</ul>
