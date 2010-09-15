@@ -6,15 +6,15 @@
 {% block head %}{{ form.media }}{% endblock %}
 
 {% block content %}
+    <form action="/contacts_edit/" method="POST" id="contact_form">
     <img src="/static/img/loading.gif" class="loading" style="display:none">
     <div id="output_result">
         {% if form.errors %}
             <ul class="errorlist">Error filling form</ul>
         {% endif%}
-    </div>
-    <form action="/contacts_edit/" method="POST" id="contact_form">
-        {% csrf_token %}
         {{ form.as_p }}
+    </div>
+        {% csrf_token %}
         <input type="submit" value="Сохранить" />
     </form>
     <i><a href="{% edit_link form.instance %}">Edit info [admin]</a></i>
