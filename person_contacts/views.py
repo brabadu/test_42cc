@@ -31,3 +31,16 @@ def contacts_edit(request):
         return render_to_response('person_contacts/contacts_edit.html',
                               {'form': form, },
                               context_instance=RequestContext(request))
+
+
+def ajax_contacts_edit(request):
+    if request.method == 'POST' and request.is_ajax():
+        p = Person.objects.get(pk=1)
+        form = PersonForm(request.POST, instance=p)
+        if form.is_valid():
+            form.save()
+        return render_to_response('person_contacts/ajax_contacts_edit.html',
+                          {'form': form, },
+                          context_instance=RequestContext(request))
+    else:
+        return HttpResponseRedirect('/')

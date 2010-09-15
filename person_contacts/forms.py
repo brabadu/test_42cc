@@ -14,3 +14,10 @@ class PersonForm(ModelForm):
         widgets = {
             'birth_date': JQueryDatePickerWidget(),
         }
+
+    class Media:
+        js = (
+            "/static/js/jquery-1.4.2.min.js",
+            "/static/js/jquery-form.js",
+            "/static/js/form.js",
+            )
