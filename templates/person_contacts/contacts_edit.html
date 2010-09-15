@@ -6,9 +6,11 @@
 {% block head %}{{ form.media }}{% endblock %}
 
 {% block content %}
-    {% if form.errors %}
-        <ul class="errorlist">Error filling form</ul>
-    {% endif%}
+    <div id="output_result">
+        {% if form.errors %}
+            <ul class="errorlist">Error filling form</ul>
+        {% endif%}
+    </div>
     <form action="/contacts_edit/" method="POST" id="contact_form">
         {% csrf_token %}
         {{ form.as_p }}
