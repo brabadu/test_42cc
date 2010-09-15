@@ -120,7 +120,8 @@ class EditintContactsTest(TestCase):
                                      'email': self.email,
                                      'twitter': self.twitter,
                                     },
-                                    follow=True)
+                                    follow=True,
+                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         person = Person.objects.get(pk=1)
         self.failUnlessEqual(person.first_name, self.first_name)
         self.failUnlessEqual(person.last_name, self.last_name)
@@ -146,7 +147,8 @@ class EditintContactsTest(TestCase):
                                      'email': self.bad_email,
                                      'twitter': self.twitter,
                                     },
-                                    follow=True)
+                                    follow=True,
+                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertFormError(response, 'form', 'email',
             'Enter a valid e-mail address.')
 
