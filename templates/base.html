@@ -13,6 +13,7 @@
 <body>
     <ul>
         <li><a href="/">Main page</a></li>
+        <li><a href="/requests">Request log</a></li>
         <li><a href="/contacts_edit">Edit contacts page</a></li>
         {% if user.is_authenticated %}
             <li><a href="{% edit_link user %}">Edit users profile [admin]</a></li>
