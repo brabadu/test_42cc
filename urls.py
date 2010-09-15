@@ -8,6 +8,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Example:
     (r'^', include('person_contacts.urls')),
+    (r'^requests/', include('request_logger.urls')),
     url(r'^accounts/login/$',
         view='django.contrib.auth.views.login',
         name='login_page'),
