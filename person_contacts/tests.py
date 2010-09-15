@@ -103,6 +103,53 @@ class EditintContactsTest(TestCase):
         self.assertFormError(response, 'form', 'email',
             'Enter a valid e-mail address.')
 
+    def test_ajax_form_response(self):
+        """
+        Tests that changes were saved correct using ajax request
+        """
+
+        response = self.client.get(reverse('person_contacts_edit'))
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.post(reverse('ajax_person_contacts_edit'),
+                                    {'first_name': self.first_name,
+                                     'last_name': self.last_name,
+                                     'birth_date': self.birth_date,
+                                     'bio': self.bio,
+                                     'telephone': self.telephone,
+                                     'email': self.email,
+                                     'twitter': self.twitter,
+                                    },
+                                    follow=True)
+        person = Person.objects.get(pk=1)
+        self.failUnlessEqual(person.first_name, self.first_name)
+        self.failUnlessEqual(person.last_name, self.last_name)
+        self.failUnlessEqual(person.bio, self.bio)
+        self.failUnlessEqual(person.telephone, self.telephone)
+        self.failUnlessEqual(person.email, self.email)
+        self.failUnlessEqual(person.twitter, self.twitter)
+
+    def test_ajax_form_response_fails(self):
+        """
+        Tests that view finds errors in forms and shows them using ajax request
+        Error is nonvalid email adress
+        """
+        response = self.client.get(reverse('person_contacts_edit'))
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.post(reverse('ajax_person_contacts_edit'),
+                                    {'first_name': self.first_name,
+                                     'last_name': self.last_name,
+                                     'birth_date': self.birth_date,
+                                     'bio': self.bio,
+                                     'telephone': self.telephone,
+                                     'email': self.bad_email,
+                                     'twitter': self.twitter,
+                                    },
+                                    follow=True)
+        self.assertFormError(response, 'form', 'email',
+            'Enter a valid e-mail address.')
+
 
 class LoginTest(TestCase):
     def setUp(self):
