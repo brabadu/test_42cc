@@ -2,6 +2,7 @@ import datetime
 
 from tddspry.django import TestCase
 from django.test import Client
+from django.core.urlresolvers import reverse
 
 from request_logger.models import RequestLogEntry
 
@@ -73,3 +74,11 @@ class RequestLoggerTest(TestCase):
                                     user_agent=user_agent)
         r = RequestLogEntry.objects.all().order_by('-time')[0]
         self.failUnlessEqual(log_entry.equals(r), True)
+
+    def test_first_requests(self):
+        """
+        Tests that page exists that lists 10 requests from database
+        """
+
+        self.go200(reverse('request_log'))
+        self.find('/admin/request_logger/requestlogentry/')
