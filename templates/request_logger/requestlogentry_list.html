@@ -4,10 +4,10 @@
 {% block title %}Person info {% endblock %}
 
 {% block content %}
-    <ul>
+    <ol>
     {% for entry in entries_list %}
         <li> {{ entry }} (<i><a href="{% edit_link entry %}">Edit info [admin]</a></i>)</li>
     {% endfor %}
-    </ul>
+    </ol>
 {% endblock %}
 
