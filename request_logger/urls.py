@@ -11,5 +11,12 @@ urlpatterns = patterns('django.views.generic.list_detail',
             'template_object_name': 'entries',
         },
         name='request_log',
-        ),
+       ),
+)
+
+urlpatterns += patterns('',
+    url(r'^(\d+)/$',
+        'request_logger.views.priority_list',
+        name='priority_request_log',
+       ),
 )

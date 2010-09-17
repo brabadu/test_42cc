@@ -23,13 +23,17 @@ class RequestLoggerTest(TestCase):
                              ip_address='123',
                              url='/',
                              request_method='get',
-                             user_agent=user_agent)
+                             user_agent=user_agent,
+                             priority=0,
+                            )
         t2 = datetime.datetime.fromordinal(t1.toordinal() + 10 * 1000)
         r2 = RequestLogEntry(time=t2,
                              ip_address='123',
                              url='/',
                              request_method='get',
-                             user_agent=user_agent)
+                             user_agent=user_agent,
+                             priority=0,
+                            )
         self.failUnlessEqual(r1.equals(r2), False)
 
     def test_equals_successes(self):
@@ -41,12 +45,16 @@ class RequestLoggerTest(TestCase):
                              ip_address='123',
                              url='/',
                              request_method='get',
-                             user_agent=user_agent)
+                             user_agent=user_agent,
+                             priority=1,
+                            )
         r2 = RequestLogEntry(time=t,
                              ip_address='123',
                              url='/',
                              request_method='get',
-                             user_agent=user_agent)
+                             user_agent=user_agent,
+                             priority=1,
+                            )
         self.failUnlessEqual(r1.equals(r2), True)
 
     def test_database_write(self):
@@ -71,7 +79,9 @@ class RequestLoggerTest(TestCase):
                                     ip_address='127.0.0.1',
                                     url='/',
                                     request_method='GET',
-                                    user_agent=user_agent)
+                                    user_agent=user_agent,
+                                    priority=1,
+                                   )
         r = RequestLogEntry.objects.all().order_by('-time')[0]
         self.failUnlessEqual(log_entry.equals(r), True)
 
@@ -82,3 +92,21 @@ class RequestLoggerTest(TestCase):
 
         self.go200(reverse('request_log'))
         self.find('/admin/request_logger/requestlogentry/')
+
+    def test_digit_param(self):
+        """
+        Tests that page is loaded properly
+        if parameter for request is in digits
+        """
+        for i in xrange(20):
+            self.go200(reverse('priority_request_log', args=[i]))
+            self.find('Priority: %d' % i)
+
+    def test_nondigit_param(self):
+        """
+        Tests that response is 404
+        if parameter for request is in non-digits
+        """
+        client = Client()
+        response = client.get('/requests/abc')
+        self.assert_equals(response.status_code, 404)
