@@ -3,14 +3,34 @@
 
 {% block title %}Requests log{% endblock %}
 
+{% block head %}
+<script type="text/javascript" src="/static/js/jquery-1.4.2.min.js"></script>
+<script>
+$(document).ready(function() { 
+  $('button.priority').click(function() {
+    window.location='/requests/' + $(go_priority).val();
+  });
+});  
+</script>
+<style type="text/css">
+   p#no_requests {color: #8A8A8A; text-decoration:italics; text-align:center;}
+</style>
+{% endblock %}
+
 {% block content %}
     {% if priority %}
         <h3>Priority: {{ priority }}</h3>
     {% endif %}
-    <ol>
-    {% for entry in entries_list %}
-        <li> {{ entry }} (<i><a href="{% edit_link entry %}">Edit info [admin]</a></i>)</li>
-    {% endfor %}
-    </ol>
+        <p align="right"><label for="go_priority">Go to priority:</label> <input id="go_priority" type="text" name="go_priority" value="1" />
+        <button class="priority">Go</button></p>
+    {% if entries_list %}
+        <ol>
+        {% for entry in entries_list %}
+            <li> {{ entry }} (<i><a href="{% edit_link entry %}">Edit info [admin]</a></i>)</li>
+        {% endfor %}
+        </ol>
+    {% else %}
+        <p id="no_requests">Sorry, no requests in log with such priority</p>
+    {% endif %}
 {% endblock %}
 
