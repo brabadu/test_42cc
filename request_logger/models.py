@@ -7,13 +7,15 @@ class RequestLogEntry (models.Model):
     url = models.CharField(max_length=50)
     request_method = models.CharField(max_length=10)
     user_agent = models.CharField(max_length=100)
+    priority = models.IntegerField(default=1)
 
     def __unicode__(self):
-        return u'%s %s %s %s %s' % (self.time.ctime(),
+        return u'%s %s %s %s %s %d' % (self.time.ctime(),
                                             self.ip_address,
                                             self.request_method,
                                             self.url,
                                             self.user_agent,
+                                            self.priority,
                                             )
 
     def equals(self, log_entry):
@@ -24,6 +26,7 @@ class RequestLogEntry (models.Model):
                    self.ip_address == log_entry.ip_address and \
                    self.url == log_entry.url and \
                    self.request_method == log_entry.request_method and \
-                   self.user_agent == log_entry.user_agent
+                   self.user_agent == log_entry.user_agent and \
+                   self.priority == log_entry.priority
         else:
             raise Exception('RequestLogEntry object expected')
