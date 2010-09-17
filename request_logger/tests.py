@@ -92,3 +92,21 @@ class RequestLoggerTest(TestCase):
 
         self.go200(reverse('request_log'))
         self.find('/admin/request_logger/requestlogentry/')
+
+    def test_digit_param(self):
+        """
+        Tests that page is loaded properly
+        if parameter for request is in digits
+        """
+        for i in xrange(20):
+            self.go200(reverse('priority_request_log', args=[i]))
+            self.find('Priority: %d' % i)
+
+    def test_nondigit_param(self):
+        """
+        Tests that response is 404
+        if parameter for request is in non-digits
+        """
+        client = Client()
+        response = client.get('/requests/abc')
+        self.assert_equals(response.status_code, 404)
