@@ -4,6 +4,9 @@
 {% block title %}Person info {% endblock %}
 
 {% block content %}
+    {% if priority %}
+        <h3>Priority: {{ priority }}</h3>
+    {% endif %}
     <ol>
     {% for entry in entries_list %}
         <li> {{ entry }} (<i><a href="{% edit_link entry %}">Edit info [admin]</a></i>)</li>
