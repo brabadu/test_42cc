@@ -26,7 +26,11 @@ $(document).ready(function() {
     {% if entries_list %}
         <ol>
         {% for entry in entries_list %}
-            <li> {{ entry }} (<i><a href="{% edit_link entry %}">Edit info [admin]</a></i>)</li>
+            <li> {{ entry }} (<i><a href="{% edit_link entry %}">Edit info [admin]</a></i>)
+                 <b><a href="{% url priority_down_request_log entry.id %}">-</a>
+                    <a href="{% url priority_up_request_log entry.id %}">+</a>
+                 </b>
+            </li>
         {% endfor %}
         </ol>
     {% else %}

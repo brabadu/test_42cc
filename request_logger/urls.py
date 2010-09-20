@@ -19,4 +19,18 @@ urlpatterns += patterns('',
         'request_logger.views.priority_list',
         name='priority_request_log',
        ),
+    url(r'^logentry/(\d+)/up$',
+        'request_logger.views.priority_change',
+        kwargs={
+            'up': True,
+        },
+        name='priority_up_request_log',
+       ),
+    url(r'^logentry/(\d+)/$',
+        'request_logger.views.priority_change',
+        kwargs={
+            'up': False,
+        },
+        name='priority_down_request_log',
+       ),
 )
