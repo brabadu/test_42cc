@@ -30,3 +30,9 @@ class RequestLogEntry (models.Model):
                    self.priority == log_entry.priority
         else:
             raise Exception('RequestLogEntry object expected')
+
+    def priority_up(self, points=1):
+        pass
+
+    def priority_down(self, points=1):
+        pass
