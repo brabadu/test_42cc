@@ -110,3 +110,20 @@ class RequestLoggerTest(TestCase):
         client = Client()
         response = client.get('/requests/abc')
         self.assert_equals(response.status_code, 404)
+
+    def test_priority_change(self):
+        """
+        Tests that objects's method of model RequestLogEntry
+        changes it's priority
+        """
+        self.go('/')
+        log_entry = RequestLogEntry.objects.all()[0]
+        priority_old = log_entry.priority
+
+        log_entry.priority_up()
+        priority_old += 1
+        self.eq_(log_entry.priority, priority_old)
+
+        log_entry.priority_down()
+        priority_old -= 1
+        self.eq_(log_entry.priority, priority_old)

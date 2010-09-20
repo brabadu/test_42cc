@@ -10,11 +10,11 @@ class RequestLogEntry (models.Model):
     priority = models.IntegerField(default=1)
 
     def __unicode__(self):
-        return u'%s %s %s %s %s %d' % (self.time.ctime(),
+        return u'%s, from %s %s to %s, %s, Priority:%d' % (self.time.ctime(),
                                             self.ip_address,
                                             self.request_method,
                                             self.url,
-                                            self.user_agent,
+                                            self.user_agent.split()[-1],
                                             self.priority,
                                             )
 
@@ -30,3 +30,11 @@ class RequestLogEntry (models.Model):
                    self.priority == log_entry.priority
         else:
             raise Exception('RequestLogEntry object expected')
+
+    def priority_up(self, points=1):
+        self.priority += points
+        self.save()
+
+    def priority_down(self, points=1):
+        self.priority -= points
+        self.save()

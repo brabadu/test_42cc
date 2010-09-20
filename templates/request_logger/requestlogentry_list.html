@@ -8,7 +8,7 @@
 <script>
 $(document).ready(function() { 
   $('button.priority').click(function() {
-    window.location ='/requests/' + $('#go_priority').val();
+    window.location ='/requests/priority/' + $('#go_priority').val();
   });
 });  
 </script>
@@ -21,12 +21,26 @@ $(document).ready(function() {
     {% if priority %}
         <h3>Priority: {{ priority }}</h3>
     {% endif %}
+    <table width="100%">
+    <tr>
+    <td>
+    <a href="{% url request_log %}?sorting=asc" title="Ascending order"><span style="font-size:120%">&uarr;</span><span style="font-size:140%">&uarr;</span><span style="font-size:160%">&uarr;</span></a>
+    <a href="{% url request_log %}?sorting=desc" title="Descending order"><span style="font-size:160%">&darr;</span><span style="font-size:140%">&darr;</span><span style="font-size:120%">&darr;</span></a>
+    </td>
+    <td>
         <p align="right"><label for="go_priority">Go to priority:</label> <input id="go_priority" type="text" name="go_priority" value="1" />
         <button class="priority">Go</button></p>
+    </td>
+    </tr>
+    </table>
     {% if entries_list %}
         <ol>
         {% for entry in entries_list %}
-            <li> {{ entry }} (<i><a href="{% edit_link entry %}">Edit info [admin]</a></i>)</li>
+            <li> {{ entry }} <sup><i><a href="{% edit_link entry %}">Edit info [admin]</a></i></sup>
+                 <b><a href="{% url priority_down_request_log entry.id %}">-</a>
+                    <a href="{% url priority_up_request_log entry.id %}">+</a>
+                 </b>
+            </li>
         {% endfor %}
         </ol>
     {% else %}
