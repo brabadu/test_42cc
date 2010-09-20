@@ -15,7 +15,7 @@ urlpatterns = patterns('django.views.generic.list_detail',
 )
 
 urlpatterns += patterns('',
-    url(r'^(\d+)/$',
+    url(r'^priority/(\d+)/$',
         'request_logger.views.priority_list',
         name='priority_request_log',
        ),
