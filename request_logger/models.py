@@ -32,7 +32,9 @@ class RequestLogEntry (models.Model):
             raise Exception('RequestLogEntry object expected')
 
     def priority_up(self, points=1):
-        pass
+        self.priority += points
+        self.save()
 
     def priority_down(self, points=1):
-        pass
+        self.priority -= points
+        self.save()
