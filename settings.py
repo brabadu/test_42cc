@@ -113,3 +113,4 @@ INSTALLED_APPS = (
 )
 
 STATIC_DOC_ROOT = os.path.join(os.path.dirname(__file__), 'static_media')
+TEST_RUNNER = 'tddspry.django.runner.TestSuiteRunner'
